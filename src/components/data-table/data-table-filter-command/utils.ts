@@ -1,17 +1,17 @@
 import {
   ARRAY_DELIMITER,
   RANGE_DELIMITER,
-  SLIDER_DELIMITER,
-} from "@/lib/delimiters";
-import type { DataTableFilterField } from "../types";
-import { isArrayOfDates } from "@/lib/is-array";
+  SLIDER_DELIMITER
+} from '@/lib/delimiters';
+import type { DataTableFilterField } from '../types';
+import { isArrayOfDates } from '@/lib/is-array';
 
 /**
  * Extracts the word from the given string at the specified caret position.
  */
 export function getWordByCaretPosition({
   value,
-  caretPosition,
+  caretPosition
 }: {
   value: string;
   caretPosition: number;
@@ -19,8 +19,8 @@ export function getWordByCaretPosition({
   let start = caretPosition;
   let end = caretPosition;
 
-  while (start > 0 && value[start - 1] !== " ") start--;
-  while (end < value.length && value[end] !== " ") end++;
+  while (start > 0 && value[start - 1] !== ' ') start--;
+  while (end < value.length && value[end] !== ' ') end++;
 
   const word = value.substring(start, end);
   return word;
@@ -31,7 +31,7 @@ export function replaceInputByFieldType<TData>({
   currentWord,
   optionValue,
   value,
-  field,
+  field
 }: {
   prev: string;
   currentWord: string;
@@ -40,44 +40,50 @@ export function replaceInputByFieldType<TData>({
   field: DataTableFilterField<TData>;
 }) {
   switch (field.type) {
-    case "checkbox": {
+    case 'checkbox': {
       if (currentWord.includes(ARRAY_DELIMITER)) {
         const words = currentWord.split(ARRAY_DELIMITER);
         words[words.length - 1] = `${optionValue}`;
         const input = prev.replace(currentWord, words.join(ARRAY_DELIMITER));
         return `${input.trim()} `;
       }
+      break;
     }
-    case "slider": {
+    case 'slider': {
       if (currentWord.includes(SLIDER_DELIMITER)) {
         const words = currentWord.split(SLIDER_DELIMITER);
         words[words.length - 1] = `${optionValue}`;
         const input = prev.replace(currentWord, words.join(SLIDER_DELIMITER));
         return `${input.trim()} `;
       }
+      break;
     }
-    case "timerange": {
+    case 'timerange': {
       if (currentWord.includes(RANGE_DELIMITER)) {
         const words = currentWord.split(RANGE_DELIMITER);
         words[words.length - 1] = `${optionValue}`;
         const input = prev.replace(currentWord, words.join(RANGE_DELIMITER));
         return `${input.trim()} `;
       }
+      break;
     }
-    default: {
-      const input = prev.replace(currentWord, value);
-      return `${input.trim()} `;
-    }
+    // default: {
+    //   const input = prev.replace(currentWord, value);
+    //   return `${input.trim()} `;
+    // }
   }
+
+  const input = prev.replace(currentWord, value);
+  return `${input.trim()} `;
 }
 
 export function getFieldOptions<TData>({
-  field,
+  field
 }: {
   field: DataTableFilterField<TData>;
 }) {
   switch (field.type) {
-    case "slider": {
+    case 'slider': {
       return field.options?.length
         ? field.options
             .map(({ value }) => value)
@@ -97,7 +103,7 @@ export function getFieldOptions<TData>({
 export function getFilterValue({
   value,
   search,
-  currentWord,
+  currentWord
 }: {
   value: string;
   search: string;
@@ -107,8 +113,8 @@ export function getFilterValue({
   /**
    * @example value "suggestion:public:true regions,ams,gru,fra"
    */
-  if (value.startsWith("suggestion:")) {
-    const rawValue = value.toLowerCase().replace("suggestion:", "");
+  if (value.startsWith('suggestion:')) {
+    const rawValue = value.toLowerCase().replace('suggestion:', '');
     if (rawValue.includes(search)) return 1;
     return 0;
   }
@@ -121,7 +127,7 @@ export function getFilterValue({
    * @example slider [filter, query] = ["p95", "0-3000"]
    * @example input [filter, query] = ["name", "api"]
    */
-  const [filter, query] = currentWord.toLowerCase().split(":");
+  const [filter, query] = currentWord.toLowerCase().split(':');
   if (query && value.startsWith(`${filter}:`)) {
     if (query.includes(ARRAY_DELIMITER)) {
       /**
@@ -129,7 +135,7 @@ export function getFilterValue({
        * @example queries = ["ams", "gru", "fra"]
        */
       const queries = query.split(ARRAY_DELIMITER);
-      const rawValue = value.toLowerCase().replace(`${filter}:`, "");
+      const rawValue = value.toLowerCase().replace(`${filter}:`, '');
       if (
         queries.some((item, i) => item === rawValue && i !== queries.length - 1)
       )
@@ -142,7 +148,7 @@ export function getFilterValue({
        * @example queries = ["0", "3000"]
        */
       const queries = query.split(SLIDER_DELIMITER);
-      const rawValue = value.toLowerCase().replace(`${filter}:`, "");
+      const rawValue = value.toLowerCase().replace(`${filter}:`, '');
 
       const rawValueAsNumber = Number.parseInt(rawValue);
       const queryAsNumber = Number.parseInt(queries[0]);
@@ -153,7 +159,7 @@ export function getFilterValue({
       }
       return 0;
     }
-    const rawValue = value.toLowerCase().replace(`${filter}:`, "");
+    const rawValue = value.toLowerCase().replace(`${filter}:`, '');
     if (rawValue.includes(query)) return 1;
   }
   return 0;
@@ -161,7 +167,7 @@ export function getFilterValue({
 
 export function getFieldValueByType<TData>({
   field,
-  value,
+  value
 }: {
   field?: DataTableFilterField<TData>;
   value: unknown;
@@ -169,23 +175,23 @@ export function getFieldValueByType<TData>({
   if (!field) return null;
 
   switch (field.type) {
-    case "slider": {
+    case 'slider': {
       if (Array.isArray(value)) {
         return value.join(SLIDER_DELIMITER);
       }
       return value;
     }
-    case "checkbox": {
+    case 'checkbox': {
       if (Array.isArray(value)) {
         return value.join(ARRAY_DELIMITER);
       }
       // REMINER: inversed logic
-      if (typeof value === "string") {
+      if (typeof value === 'string') {
         return value.split(ARRAY_DELIMITER);
       }
       return value;
     }
-    case "timerange": {
+    case 'timerange': {
       if (Array.isArray(value)) {
         if (isArrayOfDates(value)) {
           return value.map((date) => date.getTime()).join(RANGE_DELIMITER);

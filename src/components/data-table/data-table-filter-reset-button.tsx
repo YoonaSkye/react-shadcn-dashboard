@@ -1,12 +1,10 @@
-"use client";
-
-import type { DataTableFilterField } from "./types";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
-import { useDataTable } from "@/components/data-table/data-table-provider";
+import type { DataTableFilterField } from './types';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
+import { useDataTable } from '@/components/data-table/data-table-provider';
 
 export function DataTableFilterResetButton<TData>({
-  value: _value,
+  value: _value
 }: DataTableFilterField<TData>) {
   const { columnFilters, table } = useDataTable();
   const value = _value as string;
@@ -32,7 +30,7 @@ export function DataTableFilterResetButton<TData>({
       }}
       onKeyDown={(e) => {
         e.stopPropagation();
-        if (e.code === "Enter") {
+        if (e.code === 'Enter') {
           column?.setFilterValue(undefined);
         }
       }}

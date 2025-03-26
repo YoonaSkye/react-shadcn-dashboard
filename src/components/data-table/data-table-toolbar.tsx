@@ -1,22 +1,20 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
-import { DataTableViewOptions } from "./data-table-view-options";
-import { Kbd } from "@/components/custom/kbd";
-import { DataTableResetButton } from "./data-table-reset-button";
-import { useHotKey } from "@/hooks/use-hot-key";
-import { useDataTable } from "@/components/data-table/data-table-provider";
-import { useControls } from "@/providers/controls";
-import { useMemo } from "react";
-import { formatCompactNumber } from "@/lib/format";
-import { DataTableFilterControlsDrawer } from "./data-table-filter-controls-drawer";
+  TooltipTrigger
+} from '@/components/ui/tooltip';
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { DataTableViewOptions } from './data-table-view-options';
+import { Kbd } from '@/components/custom/kbd';
+import { DataTableResetButton } from './data-table-reset-button';
+import { useHotKey } from '@/hooks/use-hot-key';
+import { useDataTable } from '@/components/data-table/data-table-provider';
+import { useControls } from '@/providers/controls';
+import { useMemo } from 'react';
+import { formatCompactNumber } from '@/lib/format';
+import { DataTableFilterControlsDrawer } from './data-table-filter-controls-drawer';
 
 interface DataTableToolbarProps {
   renderActions?: () => React.ReactNode;
@@ -25,15 +23,15 @@ interface DataTableToolbarProps {
 export function DataTableToolbar({ renderActions }: DataTableToolbarProps) {
   const { table, isLoading, columnFilters } = useDataTable();
   const { open, setOpen } = useControls();
-  useHotKey(() => setOpen((prev) => !prev), "b");
+  useHotKey(() => setOpen((prev) => !prev), 'b');
   const filters = table.getState().columnFilters;
 
   const rows = useMemo(
     () => ({
       total: table.getCoreRowModel().rows.length,
-      filtered: table.getFilteredRowModel().rows.length,
+      filtered: table.getFilteredRowModel().rows.length
     }),
-    [isLoading, columnFilters],
+    [isLoading, columnFilters]
   );
 
   return (
@@ -63,7 +61,7 @@ export function DataTableToolbar({ renderActions }: DataTableToolbarProps) {
             </TooltipTrigger>
             <TooltipContent side="right">
               <p>
-                Toggle controls with{" "}
+                Toggle controls with{' '}
                 <Kbd className="ml-1 text-muted-foreground group-hover:text-accent-foreground">
                   <span className="mr-1">⌘</span>
                   <span>B</span>
@@ -79,14 +77,14 @@ export function DataTableToolbar({ renderActions }: DataTableToolbarProps) {
           <p className="hidden text-sm text-muted-foreground sm:block">
             <span className="font-mono font-medium">
               {formatCompactNumber(rows.filtered)}
-            </span>{" "}
-            of <span className="font-mono font-medium">{rows.total}</span>{" "}
+            </span>{' '}
+            of <span className="font-mono font-medium">{rows.total}</span>{' '}
             row(s) <span className="sr-only sm:not-sr-only">filtered</span>
           </p>
           <p className="block text-sm text-muted-foreground sm:hidden">
             <span className="font-mono font-medium">
               {formatCompactNumber(rows.filtered)}
-            </span>{" "}
+            </span>{' '}
             row(s)
           </p>
         </div>

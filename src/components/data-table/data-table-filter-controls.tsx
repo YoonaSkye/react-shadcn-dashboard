@@ -1,18 +1,16 @@
-"use client";
-
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
-} from "@/components/custom/accordion";
-import type React from "react";
-import { DataTableFilterResetButton } from "./data-table-filter-reset-button";
-import { DataTableFilterCheckbox } from "./data-table-filter-checkbox";
-import { DataTableFilterSlider } from "./data-table-filter-slider";
-import { DataTableFilterInput } from "./data-table-filter-input";
-import { DataTableFilterTimerange } from "./data-table-filter-timerange";
-import { useDataTable } from "@/components/data-table/data-table-provider";
+  AccordionTrigger
+} from '@/components/custom/accordion';
+
+import { DataTableFilterResetButton } from './data-table-filter-reset-button';
+import { DataTableFilterCheckbox } from './data-table-filter-checkbox';
+import { DataTableFilterSlider } from './data-table-filter-slider';
+import { DataTableFilterInput } from './data-table-filter-input';
+import { DataTableFilterTimerange } from './data-table-filter-timerange';
+import { useDataTable } from '@/components/data-table/data-table-provider';
 
 // FIXME: use @container (especially for the slider element) to restructure elements
 
@@ -52,16 +50,16 @@ export function DataTableFilterControls() {
               <div className="p-1">
                 {(() => {
                   switch (field.type) {
-                    case "checkbox": {
+                    case 'checkbox': {
                       return <DataTableFilterCheckbox {...field} />;
                     }
-                    case "slider": {
+                    case 'slider': {
                       return <DataTableFilterSlider {...field} />;
                     }
-                    case "input": {
+                    case 'input': {
                       return <DataTableFilterInput {...field} />;
                     }
-                    case "timerange": {
+                    case 'timerange': {
                       return <DataTableFilterTimerange {...field} />;
                     }
                   }

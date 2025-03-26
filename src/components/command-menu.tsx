@@ -1,18 +1,8 @@
-import * as React from 'react';
 import { useRouter } from '@/routes/hooks/use-router';
 import { type DialogProps } from '@radix-ui/react-dialog';
-import {
-  ChartLine,
-  Info,
-  MessagesSquare,
-  Settings,
-  SquareTerminal,
-  Table
-} from 'lucide-react';
+import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import {
   CommandDialog,
   CommandEmpty,
@@ -21,6 +11,8 @@ import {
   CommandItem,
   CommandList
 } from '@/components/ui/command';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
 
 const docsConfig = {
   navMain: [

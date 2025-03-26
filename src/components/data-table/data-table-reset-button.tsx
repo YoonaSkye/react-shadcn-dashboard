@@ -1,20 +1,18 @@
-"use client";
-
-import { X } from "lucide-react";
-import { Button } from "../ui/button";
+import { X } from 'lucide-react';
+import { Button } from '../ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Kbd } from "@/components/custom/kbd";
-import { useHotKey } from "@/hooks/use-hot-key";
-import { useDataTable } from "@/components/data-table/data-table-provider";
+  TooltipTrigger
+} from '@/components/ui/tooltip';
+import { Kbd } from '@/components/custom/kbd';
+import { useHotKey } from '@/hooks/use-hot-key';
+import { useDataTable } from '@/components/data-table/data-table-provider';
 
 export function DataTableResetButton() {
   const { table } = useDataTable();
-  useHotKey(table.resetColumnFilters, "Escape");
+  useHotKey(table.resetColumnFilters, 'Escape');
 
   return (
     <TooltipProvider>
@@ -31,7 +29,7 @@ export function DataTableResetButton() {
         </TooltipTrigger>
         <TooltipContent side="left">
           <p>
-            Reset filters with{" "}
+            Reset filters with{' '}
             <Kbd className="ml-1 text-muted-foreground group-hover:text-accent-foreground">
               <span className="mr-1">⌘</span>
               <span>Esc</span>

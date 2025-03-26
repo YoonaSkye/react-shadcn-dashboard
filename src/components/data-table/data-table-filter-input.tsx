@@ -1,19 +1,17 @@
-"use client";
-
-import type { DataTableInputFilterField } from "./types";
-import { InputWithAddons } from "@/components/custom/input-with-addons";
-import { Label } from "@/components/ui/label";
-import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useDebounce } from "@/hooks/use-debounce";
-import { useDataTable } from "@/components/data-table/data-table-provider";
+import type { DataTableInputFilterField } from './types';
+import { InputWithAddons } from '@/components/custom/input-with-addons';
+import { Label } from '@/components/ui/label';
+import { Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useDebounce } from '@/hooks/use-debounce';
+import { useDataTable } from '@/components/data-table/data-table-provider';
 
 function getFilter(filterValue: unknown) {
-  return typeof filterValue === "string" ? filterValue : null;
+  return typeof filterValue === 'string' ? filterValue : null;
 }
 
 export function DataTableFilterInput<TData>({
-  value: _value,
+  value: _value
 }: DataTableInputFilterField<TData>) {
   const value = _value as string;
   const { table, columnFilters } = useDataTable();
@@ -25,7 +23,7 @@ export function DataTableFilterInput<TData>({
   const debouncedInput = useDebounce(input, 500);
 
   useEffect(() => {
-    const newValue = debouncedInput?.trim() === "" ? null : debouncedInput;
+    const newValue = debouncedInput?.trim() === '' ? null : debouncedInput;
     if (debouncedInput === null) return;
     column?.setFilterValue(newValue);
   }, [debouncedInput]);
@@ -47,7 +45,7 @@ export function DataTableFilterInput<TData>({
         containerClassName="h-9 rounded-lg"
         name={value}
         id={value}
-        value={input || ""}
+        value={input || ''}
         onChange={(e) => setInput(e.target.value)}
       />
     </div>

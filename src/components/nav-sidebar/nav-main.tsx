@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 
 import {
@@ -12,9 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem
+  SidebarMenuSub
 } from '@/components/ui/sidebar';
 import { Link } from 'react-router-dom';
 
@@ -33,12 +30,6 @@ export function NavMain({
   items: MenuItem[];
   group: string;
 }) {
-  const [openItems, setOpenItems] = useState<string[]>([]);
-
-  const handleToggle = (title: string) => {
-    setOpenItems([title]);
-  };
-
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{group}</SidebarGroupLabel>
@@ -53,7 +44,7 @@ export function NavMain({
 
 function Tree({ item }: { item: MenuItem }) {
   // const [name, ...items] = Array.isArray(item) ? item : [item];
-  const { items, title: name, url, icon } = item;
+  const { items, title: name, url } = item;
 
   if (!items || !items.length) {
     return (

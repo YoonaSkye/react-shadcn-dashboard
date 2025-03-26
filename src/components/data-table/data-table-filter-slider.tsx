@@ -1,16 +1,14 @@
-"use client";
-
-import type { DataTableSliderFilterField } from "./types";
-import { InputWithAddons } from "@/components/custom/input-with-addons";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/custom/slider";
-import { isArrayOfNumbers } from "@/lib/is-array";
-import { useEffect, useState } from "react";
-import { useDebounce } from "@/hooks/use-debounce";
-import { useDataTable } from "@/components/data-table/data-table-provider";
+import type { DataTableSliderFilterField } from './types';
+import { InputWithAddons } from '@/components/custom/input-with-addons';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/custom/slider';
+import { isArrayOfNumbers } from '@/lib/is-array';
+import { useEffect, useState } from 'react';
+import { useDebounce } from '@/hooks/use-debounce';
+import { useDataTable } from '@/components/data-table/data-table-provider';
 
 function getFilter(filterValue: unknown) {
-  return typeof filterValue === "number"
+  return typeof filterValue === 'number'
     ? [filterValue, filterValue]
     : Array.isArray(filterValue) && isArrayOfNumbers(filterValue)
       ? filterValue.length === 1
@@ -23,7 +21,7 @@ function getFilter(filterValue: unknown) {
 export function DataTableFilterSlider<TData>({
   value: _value,
   min: defaultMin,
-  max: defaultMax,
+  max: defaultMax
 }: DataTableSliderFilterField<TData>) {
   const value = _value as string;
   const { table, columnFilters, getFacetedMinMaxValues } = useDataTable();

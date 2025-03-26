@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { TooltipPortal } from "@radix-ui/react-tooltip";
+  TooltipTrigger
+} from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
+import { TooltipPortal } from '@radix-ui/react-tooltip';
 
 interface TextWithTooltipProps {
   text: string | number;
@@ -47,8 +47,8 @@ export function TextWithTooltip({ text, className }: TextWithTooltipProps) {
           <div
             ref={textRef}
             className={cn(
-              "truncate",
-              !isTruncated && "pointer-events-none",
+              'truncate',
+              !isTruncated && 'pointer-events-none',
               className
             )}
           >
